@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -34,10 +35,38 @@ namespace AudioBox.Compression
 			return _Default;
 		}
 
+		public static bool GetBool(this IDictionary<string, object> _Data, string _Key, bool _Default = false)
+		{
+			if (_Data.ContainsKey(_Key))
+				return (bool)_Data[_Key];
+			return _Default;
+		}
+
 		public static double GetDouble(this IDictionary<string, object> _Data, string _Key, double _Default = 0)
 		{
 			if (_Data.ContainsKey(_Key))
 				return (double)_Data[_Key];
+			return _Default;
+		}
+
+		public static T GetEnum<T>(this IDictionary<string, object> _Data, string _Key, T _Default = default) where T : Enum
+		{
+			if (_Data.ContainsKey(_Key))
+				return (T)_Data[_Key];
+			return _Default;
+		}
+
+		public static IList GetList(this IDictionary<string, object> _Data, string _Key, IList _Default = null)
+		{
+			if (_Data.ContainsKey(_Key))
+				return (IList)_Data[_Key];
+			return _Default;
+		}
+
+		public static IDictionary<string, object> GetDictionary(IDictionary<string, object> _Data, string _Key, IDictionary<string, object> _Default = null)
+		{
+			if (_Data.ContainsKey(_Key))
+				return (IDictionary<string, object>)_Data[_Key];
 			return _Default;
 		}
 
