@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace AudioBox.Compression
@@ -69,23 +70,28 @@ namespace AudioBox.Compression
 			return _Default;
 		}
 
-		public static IList GetList(this IDictionary<string, object> _Data, string _Key, IList _Default = null)
+		public static IList<object> GetList(this IDictionary<string, object> _Data, string _Key, IList<object> _Default = null)
 		{
 			if (_Data.ContainsKey(_Key))
-				return _Data[_Key] as IList;
+				return _Data[_Key] as IList<object>;
 			return _Default;
 		}
 
-		public static IDictionary<string, object> GetDictionary(IDictionary<string, object> _Data, string _Key, IDictionary<string, object> _Default = null)
+		public static IDictionary<string, object> GetDictionary(this IDictionary<string, object> _Data, string _Key, IDictionary<string, object> _Default = null)
 		{
 			if (_Data.ContainsKey(_Key))
 				return _Data[_Key] as IDictionary<string, object>;
 			return _Default;
 		}
 
-		public static IDictionary<string, object> GetDictionary(this IList _Data, int _Index)
+		public static IDictionary<string, object> GetDictionary(this IList<object> _Data, int _Index)
 		{
 			return _Data[_Index] as IDictionary<string, object>;
+		}
+
+		public static List<string> GetKeys(this IDictionary<string, object> _Data)
+		{
+			return _Data.Keys.ToList();
 		}
 
 		public static string GenerateUniqueID<T>(this ICollection<T> _List, string _ID, Func<T, string> _Selector)
