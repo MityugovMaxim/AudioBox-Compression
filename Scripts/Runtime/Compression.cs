@@ -1,6 +1,5 @@
 using System.IO;
 using System.IO.Compression;
-using UnityEngine;
 
 namespace AudioBox.Compression
 {
