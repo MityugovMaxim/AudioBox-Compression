@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace AudioBox.Compression
@@ -63,6 +61,13 @@ namespace AudioBox.Compression
 			return _Default;
 		}
 
+		public static Color GetColor(this IDictionary<string, object> _Data, string _Name, string _Default = "#FFFFFFFF")
+		{
+			string color = _Data.GetString(_Name, _Default);
+			
+			return ColorUtility.TryParseHtmlString(color, out Color value) ? value : Color.white;
+		}
+
 		public static T GetEnum<T>(this IDictionary<string, object> _Data, string _Key, T _Default = default) where T : Enum
 		{
 			if (_Data.ContainsKey(_Key))
@@ -92,29 +97,6 @@ namespace AudioBox.Compression
 		public static List<string> GetKeys(this IDictionary<string, object> _Data)
 		{
 			return _Data.Keys.ToList();
-		}
-
-		public static string GenerateUniqueID<T>(this ICollection<T> _List, string _ID, Func<T, string> _Selector)
-		{
-			if (_List.All(_Snapshot => _Selector(_Snapshot) != _ID))
-				return _ID;
-			
-			const int limit = 100;
-			
-			int    index = 1;
-			string id    = _ID;
-			while (true)
-			{
-				if (_List.All(_Snapshot => _Selector(_Snapshot) != _ID))
-					return id;
-				
-				id = $"{_ID} [{index:00}]";
-				
-				index++;
-				
-				if (index >= limit)
-					return id;
-			}
 		}
 	}
 }
